@@ -202,7 +202,7 @@ body {
 }
 /*dorado*/
 
--countdown h1, p, .countdown-circle span, .section-music h2, .section-quote h1{
+.countdown h1, p, .countdown-circle span, .section-music h2, .section-quote h1{
     background: linear-gradient(to right, #b29a68, #d4af37, #ffd700, #d4af37, #b29a68);
     -webkit-background-clip: text;
     color: transparent;
