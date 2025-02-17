@@ -1,33 +1,39 @@
 // Función para abrir la invitación (sobre) y reproducir la música
 function abrirInvitacion() {
-    // Obtener el sobre y la invitación
     const envelope = document.getElementById('envelope');
     const invitacion = document.getElementById('invitacion');
-    
-    // Añadir clase para animar la apertura del sobre
-    envelope.classList.add('open');
+    const musica = document.getElementById('musica');
 
-    // Mostrar la invitación después de la animación
-    setTimeout(() => {
-        envelope.style.display = 'none';
-        invitacion.style.display = 'block';
-        
-        // Reproducir la música solo después de abrir el sobre
-        const musica = document.getElementById('musica');
-        if (musica) {
+    if (!envelope.classList.contains('open')) {
+        // Abrir el sobre solo si aún no está abierto
+        envelope.classList.add('open');
+
+        setTimeout(() => {
+            envelope.style.display = 'none';
+            invitacion.style.display = 'block';
+
+            // Reproducir música al abrir la invitación
+            if (musica.paused) {
+                musica.play();
+            }
+        }, 1000);
+    } else {
+        // Si el sobre ya está abierto, solo controlar la música
+        if (musica.paused) {
             musica.play();
+        } else {
+            musica.pause();
         }
-    }, 1000); // Ajustar tiempo para esperar la animación de apertura del sobre
+    }
 }
 
-// Asignar el evento de clic al sello para abrir el sobre
-document.addEventListener('DOMContentLoaded', function() {
-    const seal = document.getElementById('seal');
-    if (seal) {
-        seal.addEventListener('click', abrirInvitacion);
+document.addEventListener("DOMContentLoaded", function () {
+    const sello = document.getElementById("seal");
+    if (sello) {
+        sello.addEventListener("click", abrirInvitacion);
     }
 
-    // Iniciar el contador y cargar los datos del invitado al cargar la página
+    // Iniciar contador y cargar datos del invitado al cargar la página
     iniciarContador();
     cargarDatosInvitado();
 });
@@ -82,23 +88,18 @@ function iniciarContador() {
 // Función para abrir el lightbox solo al hacer clic en una imagen de la galería
 function changePhoto(element) {
     const mainPhotoModal = document.getElementById('main-photo-modal');
-
-    // Establecer la imagen del modal como la imagen seleccionada
     mainPhotoModal.src = element.src;
-
-    // Mostrar el modal
     openModal();
 }
 
 // Función para mostrar el modal
 function openModal() {
     const modal = document.getElementById('photo-modal');
-    modal.style.display = 'flex'; // Usar 'flex' para centrar la imagen en pantalla
+    modal.style.display = 'flex';
 }
 
 // Función para cerrar el modal
 function closeModal(event) {
-    // Cerrar el modal solo si el clic no fue en la imagen
     if (event.target.id === 'photo-modal' || event.target.className === 'close') {
         const modal = document.getElementById('photo-modal');
         modal.style.display = 'none';
@@ -110,14 +111,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const elementsToFade = document.querySelectorAll('.fade-in-element');
 
     const observerOptions = {
-        threshold: 0.5, // El porcentaje del elemento que debe ser visible antes de activar la animación
+        threshold: 0.5,
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Deja de observar una vez que la animación se activa
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -127,43 +128,35 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-//Funcion para confirmar la asistencia 
+// Función para confirmar la asistencia
 function confirmarAsistencia() {
-    const invitado = "Ana Pérez";  // Aquí puedes obtener el nombre dinámicamente si es necesario
-    const pases = 3;  // Aquí puedes obtener la cantidad de pases de forma dinámica
+    const invitado = "Ana Pérez"; 
+    const pases = 3; 
 
     const mensaje = `Hola, soy ${invitado} y confirmo mi asistencia con ${pases} pases para la fiesta de quince años de Belén.`;
-    const numeroTelefono = '50236011737'; // Reemplaza con el número de WhatsApp al cual se enviará el mensaje
+    const numeroTelefono = '50236011737';
 
     const enlaceWhatsapp = `https://api.whatsapp.com/send?phone=${numeroTelefono}&text=${encodeURIComponent(mensaje)}`;
-    
-    // Abre el enlace de WhatsApp
     window.open(enlaceWhatsapp, '_blank');
 }
-//Funcion para abrir waze o maps
-//iglesia
+
+// Función para abrir Waze o Google Maps
 function elegirAplicacion() {
     const enlaceGoogleMaps = 'https://maps.app.goo.gl/dfD9cMEbSAdn56qV8';
     const enlaceWaze = 'https://waze.com/ul?ll=14.558065,-90.729567&navigate=yes';
 
-    // Intentar abrir Google Maps primero
     window.open(enlaceGoogleMaps, '_blank');
-    
-    // Intentar abrir Waze (en caso de que Google Maps no esté disponible)
     setTimeout(() => {
         window.open(enlaceWaze, '_blank');
-    }, 1000); // Retraso para permitir que el primer enlace se abra si está disponible
+    }, 1000);
 }
-//fiesta
+
 function elegirAplicacionOtraDireccion() {
     const enlaceGoogleMaps = 'https://maps.app.goo.gl/YokAqLQi9DA7hXXs8';
     const enlaceWaze = 'https://waze.com/ul?ll=14.558065,-90.729567&navigate=yes';
 
-    // Intentar abrir Google Maps primero
     window.open(enlaceGoogleMaps, '_blank');
-
-    // Intentar abrir Waze (en caso de que Google Maps no esté disponible)
     setTimeout(() => {
         window.open(enlaceWaze, '_blank');
-    }, 1000); // Retraso para permitir que el primer enlace se abra si está disponible
+    }, 1000);
 }

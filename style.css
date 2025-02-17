@@ -551,7 +551,7 @@ button {
     background-color:tan;
     color: #fff;
     border-radius: 5px;
-    font-family: var(--font-1);
+    font-family: var(--font-text);
     padding: 10px;
     transition: background-color 0.3s;
     border: none;
